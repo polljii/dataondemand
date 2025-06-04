@@ -1,4 +1,5 @@
 # Data On-Demand
+### Self-Service BI Infrastructure for Data Democratization
 > Designed and implemented a self-service Business Intelligence (BI)
             infrastructure to empower users across the organization with
             accessible, reliable data. Built robust ETL/ELT pipelines to
