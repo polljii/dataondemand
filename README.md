@@ -24,10 +24,10 @@
 
 ---
 
-![img1](https://github.com/polljii/dataondemand/blob/main/dataondemand1.png)
+![img1](https://github.com/polljii/dataondemand/blob/main/dataondemand1.svg)
 
-![img2](https://github.com/polljii/dataondemand/blob/main/dataondemand2.png)
+![img2](https://github.com/polljii/dataondemand/blob/main/dataondemand2.svg)
 
-![img3](https://github.com/polljii/dataondemand/blob/main/dataondemand3.png)
+![img3](https://github.com/polljii/dataondemand/blob/main/dataondemand3.svg)
 
 ![img4](https://github.com/polljii/dataondemand/blob/main/dataondemand4.png)
