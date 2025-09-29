@@ -1,13 +1,14 @@
 # Data On-Demand
 ### Self-Service BI Infrastructure for Data Democratization
-> Designed and implemented a self-service Business Intelligence (BI)
-            infrastructure to empower users across the organization with
-            accessible, reliable data. Built robust ETL/ELT pipelines to
-            integrate and transform data from multiple critical systems,
-            including Corebanking, Dynamics 365 FinOps, and automation
-            platforms. This initiative enabled real-time insights, reduced
-            dependency on IT for reporting, and promoted a culture of
-            data-driven decision-making.
+> Unlock the power of your data with Data On-Demand — a ready-to-use template for building modern, scalable, and secure ETL/ELT pipelines in Azure Data Factory. This project demonstrates how to streamline data movement and transformation using real-world NFL stats as sample datasets. Data flows seamlessly from Azure Data Lake Gen2 into Azure Cosmos DB, where it becomes instantly available for analytics and visualization.
+
+ ✨<b>What You Get</b><br/>
+  •	📂 <b>Data Lake to Cosmos DB</b> – modern cloud storage meets scalable NoSQL<br/>
+  •	🔐 <b>Built-in Security</b> – manage access with Managed Identities or RBAC<br/>
+  •	📊 <b>Ready for Insights</b> – connect Cosmos DB endpoints to Power BI or your favorite BI tool<br/>
+  •	🚀 <b>Template-First Approach</b> – jumpstart your own pipeline with a proven baseline<br/>
+
+Whether you’re a data engineer, BI developer, or cloud architect, this template gives you a fast track to self-service analytics and supports your journey toward data democratization.
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-red.svg)
 ![Azure](https://img.shields.io/badge/Azure-Data%20Factory-blue)
@@ -16,18 +17,6 @@
 
 ---
 
-### REPO IS FOR PORTFOLIO PURPOSES ONLY
-- CODE SNIPPETS ARE LIMITED
-- SCREENSHOTS ARE LIMITED
-- DATA PRIVACY IS IN EFFECT
-- ALL RIGHTS ARE WITH THE OWNER/PUBLISHER OF THE APPLICATION
+![img2](https://github.com/polljii/dataondemand/blob/adf_publish/dataondemand2.png)
 
----
-
-![img4](https://github.com/polljii/dataondemand/blob/main/dataondemand4.png)
-
-![img1](https://github.com/polljii/dataondemand/blob/main/dataondemand1.svg)
-
-![img2](https://github.com/polljii/dataondemand/blob/main/dataondemand2.svg)
-
-![img3](https://github.com/polljii/dataondemand/blob/main/dataondemand3.svg)
+![img3](https://github.com/polljii/dataondemand/blob/adf_publish/dataondemand3.png)
