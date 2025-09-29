@@ -1090,11 +1090,6 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"parameters": {
-					"seasonYear": {
-						"type": "string"
-					}
-				},
 				"annotations": []
 			},
 			"dependsOn": [
