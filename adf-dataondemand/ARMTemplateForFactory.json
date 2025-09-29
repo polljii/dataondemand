@@ -1,0 +1,1114 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-dataondemand"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"CosmosDbNoSql1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'CosmosDbNoSql1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/qbr_season_level')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "qbr_season_level.csv",
+						"folderPath": "qbr_season_level",
+						"container": "nflverse-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "season",
+						"type": "String"
+					},
+					{
+						"name": "season_type",
+						"type": "String"
+					},
+					{
+						"name": "game_week",
+						"type": "String"
+					},
+					{
+						"name": "team_abb",
+						"type": "String"
+					},
+					{
+						"name": "player_id",
+						"type": "String"
+					},
+					{
+						"name": "name_short",
+						"type": "String"
+					},
+					{
+						"name": "rank",
+						"type": "String"
+					},
+					{
+						"name": "qbr_total",
+						"type": "String"
+					},
+					{
+						"name": "pts_added",
+						"type": "String"
+					},
+					{
+						"name": "qb_plays",
+						"type": "String"
+					},
+					{
+						"name": "epa_total",
+						"type": "String"
+					},
+					{
+						"name": "pass",
+						"type": "String"
+					},
+					{
+						"name": "run",
+						"type": "String"
+					},
+					{
+						"name": "exp_sack",
+						"type": "String"
+					},
+					{
+						"name": "penalty",
+						"type": "String"
+					},
+					{
+						"name": "qbr_raw",
+						"type": "String"
+					},
+					{
+						"name": "sack",
+						"type": "String"
+					},
+					{
+						"name": "name_first",
+						"type": "String"
+					},
+					{
+						"name": "name_last",
+						"type": "String"
+					},
+					{
+						"name": "name_display",
+						"type": "String"
+					},
+					{
+						"name": "headshot_href",
+						"type": "String"
+					},
+					{
+						"name": "team",
+						"type": "String"
+					},
+					{
+						"name": "qualified",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_player_post')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"seasonYear": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "stats_player_post_@{dataset().seasonYear}.csv",
+							"type": "Expression"
+						},
+						"folderPath": "stats_player_post",
+						"container": "nflverse-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "season",
+						"type": "String"
+					},
+					{
+						"name": "season_type",
+						"type": "String"
+					},
+					{
+						"name": "game_week",
+						"type": "String"
+					},
+					{
+						"name": "team_abb",
+						"type": "String"
+					},
+					{
+						"name": "player_id",
+						"type": "String"
+					},
+					{
+						"name": "name_short",
+						"type": "String"
+					},
+					{
+						"name": "rank",
+						"type": "String"
+					},
+					{
+						"name": "qbr_total",
+						"type": "String"
+					},
+					{
+						"name": "pts_added",
+						"type": "String"
+					},
+					{
+						"name": "qb_plays",
+						"type": "String"
+					},
+					{
+						"name": "epa_total",
+						"type": "String"
+					},
+					{
+						"name": "pass",
+						"type": "String"
+					},
+					{
+						"name": "run",
+						"type": "String"
+					},
+					{
+						"name": "exp_sack",
+						"type": "String"
+					},
+					{
+						"name": "penalty",
+						"type": "String"
+					},
+					{
+						"name": "qbr_raw",
+						"type": "String"
+					},
+					{
+						"name": "sack",
+						"type": "String"
+					},
+					{
+						"name": "name_first",
+						"type": "String"
+					},
+					{
+						"name": "name_last",
+						"type": "String"
+					},
+					{
+						"name": "name_display",
+						"type": "String"
+					},
+					{
+						"name": "headshot_href",
+						"type": "String"
+					},
+					{
+						"name": "team",
+						"type": "String"
+					},
+					{
+						"name": "qualified",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Store nfl stats to cosmos db')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Iterate seasons",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Copy qbr_season_level",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@range(2008, 18)",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy stats_player_post",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "CosmosDbSqlApiSink",
+											"writeBehavior": "upsert",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "stats_player_post",
+											"type": "DatasetReference",
+											"parameters": {
+												"seasonYear": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "stats_player_post_nosql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								},
+								{
+									"name": "Copy stats_player_reg",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copy stats_player_post",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "CosmosDbSqlApiSink",
+											"writeBehavior": "upsert",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "stats_player_reg",
+											"type": "DatasetReference",
+											"parameters": {
+												"seasonYear": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "stats_player_reg_nosql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								},
+								{
+									"name": "Copy stats_team_post",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copy stats_player_reg",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "CosmosDbSqlApiSink",
+											"writeBehavior": "upsert",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "stats_team_post",
+											"type": "DatasetReference",
+											"parameters": {
+												"seasonYear": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "stats_team_post_nosql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								},
+								{
+									"name": "Copy stats_team_reg",
+									"type": "Copy",
+									"dependsOn": [
+										{
+											"activity": "Copy stats_team_post",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "CosmosDbSqlApiSink",
+											"writeBehavior": "upsert",
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "stats_team_reg",
+											"type": "DatasetReference",
+											"parameters": {
+												"seasonYear": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "stats_team_reg_nosql",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy qbr_season_level",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "CosmosDbSqlApiSink",
+								"writeBehavior": "upsert",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "qbr_season_level",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "qbr_season_level_nosql",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"seasonYear": {
+						"type": "string"
+					}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/qbr_season_level')]",
+				"[concat(variables('factoryId'), '/datasets/qbr_season_level_nosql')]",
+				"[concat(variables('factoryId'), '/datasets/stats_player_post')]",
+				"[concat(variables('factoryId'), '/datasets/stats_player_post_nosql')]",
+				"[concat(variables('factoryId'), '/datasets/stats_player_reg')]",
+				"[concat(variables('factoryId'), '/datasets/stats_player_reg_nosql')]",
+				"[concat(variables('factoryId'), '/datasets/stats_team_post')]",
+				"[concat(variables('factoryId'), '/datasets/stats_team_post_nosql')]",
+				"[concat(variables('factoryId'), '/datasets/stats_team_reg')]",
+				"[concat(variables('factoryId'), '/datasets/stats_team_reg_nosql')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CosmosDbNoSql1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "CosmosDb",
+				"typeProperties": {
+					"connectionString": "[parameters('CosmosDbNoSql1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_player_post_nosql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDbNoSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "stats_player_post"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CosmosDbNoSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/qbr_season_level_nosql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDbNoSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "qbr_season_level"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CosmosDbNoSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_player_reg')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"seasonYear": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "stats_player_reg_@{dataset().seasonYear}.csv",
+							"type": "Expression"
+						},
+						"folderPath": "stats_player_reg",
+						"container": "nflverse-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "season",
+						"type": "String"
+					},
+					{
+						"name": "season_type",
+						"type": "String"
+					},
+					{
+						"name": "game_week",
+						"type": "String"
+					},
+					{
+						"name": "team_abb",
+						"type": "String"
+					},
+					{
+						"name": "player_id",
+						"type": "String"
+					},
+					{
+						"name": "name_short",
+						"type": "String"
+					},
+					{
+						"name": "rank",
+						"type": "String"
+					},
+					{
+						"name": "qbr_total",
+						"type": "String"
+					},
+					{
+						"name": "pts_added",
+						"type": "String"
+					},
+					{
+						"name": "qb_plays",
+						"type": "String"
+					},
+					{
+						"name": "epa_total",
+						"type": "String"
+					},
+					{
+						"name": "pass",
+						"type": "String"
+					},
+					{
+						"name": "run",
+						"type": "String"
+					},
+					{
+						"name": "exp_sack",
+						"type": "String"
+					},
+					{
+						"name": "penalty",
+						"type": "String"
+					},
+					{
+						"name": "qbr_raw",
+						"type": "String"
+					},
+					{
+						"name": "sack",
+						"type": "String"
+					},
+					{
+						"name": "name_first",
+						"type": "String"
+					},
+					{
+						"name": "name_last",
+						"type": "String"
+					},
+					{
+						"name": "name_display",
+						"type": "String"
+					},
+					{
+						"name": "headshot_href",
+						"type": "String"
+					},
+					{
+						"name": "team",
+						"type": "String"
+					},
+					{
+						"name": "qualified",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_player_reg_nosql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDbNoSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "stats_player_reg"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CosmosDbNoSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_team_post')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"seasonYear": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "stats_team_post_@{dataset().seasonYear}.csv",
+							"type": "Expression"
+						},
+						"folderPath": "stats_team_post",
+						"container": "nflverse-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "season",
+						"type": "String"
+					},
+					{
+						"name": "season_type",
+						"type": "String"
+					},
+					{
+						"name": "game_week",
+						"type": "String"
+					},
+					{
+						"name": "team_abb",
+						"type": "String"
+					},
+					{
+						"name": "player_id",
+						"type": "String"
+					},
+					{
+						"name": "name_short",
+						"type": "String"
+					},
+					{
+						"name": "rank",
+						"type": "String"
+					},
+					{
+						"name": "qbr_total",
+						"type": "String"
+					},
+					{
+						"name": "pts_added",
+						"type": "String"
+					},
+					{
+						"name": "qb_plays",
+						"type": "String"
+					},
+					{
+						"name": "epa_total",
+						"type": "String"
+					},
+					{
+						"name": "pass",
+						"type": "String"
+					},
+					{
+						"name": "run",
+						"type": "String"
+					},
+					{
+						"name": "exp_sack",
+						"type": "String"
+					},
+					{
+						"name": "penalty",
+						"type": "String"
+					},
+					{
+						"name": "qbr_raw",
+						"type": "String"
+					},
+					{
+						"name": "sack",
+						"type": "String"
+					},
+					{
+						"name": "name_first",
+						"type": "String"
+					},
+					{
+						"name": "name_last",
+						"type": "String"
+					},
+					{
+						"name": "name_display",
+						"type": "String"
+					},
+					{
+						"name": "headshot_href",
+						"type": "String"
+					},
+					{
+						"name": "team",
+						"type": "String"
+					},
+					{
+						"name": "qualified",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_team_post_nosql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDbNoSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "stats_team_post"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CosmosDbNoSql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_team_reg')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"seasonYear": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "stats_team_reg_@{dataset().seasonYear}.csv",
+							"type": "Expression"
+						},
+						"folderPath": "stats_team_reg",
+						"container": "nflverse-data"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "season",
+						"type": "String"
+					},
+					{
+						"name": "season_type",
+						"type": "String"
+					},
+					{
+						"name": "game_week",
+						"type": "String"
+					},
+					{
+						"name": "team_abb",
+						"type": "String"
+					},
+					{
+						"name": "player_id",
+						"type": "String"
+					},
+					{
+						"name": "name_short",
+						"type": "String"
+					},
+					{
+						"name": "rank",
+						"type": "String"
+					},
+					{
+						"name": "qbr_total",
+						"type": "String"
+					},
+					{
+						"name": "pts_added",
+						"type": "String"
+					},
+					{
+						"name": "qb_plays",
+						"type": "String"
+					},
+					{
+						"name": "epa_total",
+						"type": "String"
+					},
+					{
+						"name": "pass",
+						"type": "String"
+					},
+					{
+						"name": "run",
+						"type": "String"
+					},
+					{
+						"name": "exp_sack",
+						"type": "String"
+					},
+					{
+						"name": "penalty",
+						"type": "String"
+					},
+					{
+						"name": "qbr_raw",
+						"type": "String"
+					},
+					{
+						"name": "sack",
+						"type": "String"
+					},
+					{
+						"name": "name_first",
+						"type": "String"
+					},
+					{
+						"name": "name_last",
+						"type": "String"
+					},
+					{
+						"name": "name_display",
+						"type": "String"
+					},
+					{
+						"name": "headshot_href",
+						"type": "String"
+					},
+					{
+						"name": "team",
+						"type": "String"
+					},
+					{
+						"name": "qualified",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/stats_team_reg_nosql')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "CosmosDbNoSql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CosmosDbSqlApiCollection",
+				"schema": {},
+				"typeProperties": {
+					"collectionName": "stats_team_reg"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/CosmosDbNoSql1')]"
+			]
+		}
+	]
+}
