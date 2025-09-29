@@ -17,6 +17,8 @@ Whether you’re a data engineer, BI developer, or cloud architect, this templat
 
 ---
 
-![img2](https://github.com/polljii/dataondemand/blob/adf_publish/dataondemand2.png)
+![img2](https://github.com/polljii/dataondemand/blob/main/dataondemand1.png)
 
-![img3](https://github.com/polljii/dataondemand/blob/adf_publish/dataondemand3.png)
+![img2](https://github.com/polljii/dataondemand/blob/main/dataondemand2.png)
+
+![img3](https://github.com/polljii/dataondemand/blob/main/dataondemand3.png)
