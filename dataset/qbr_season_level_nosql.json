@@ -1,0 +1,15 @@
+{
+	"name": "qbr_season_level_nosql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CosmosDbNoSql1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": "qbr_season_level"
+		}
+	}
+}

@@ -1,0 +1,125 @@
+{
+	"name": "stats_player_reg",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"seasonYear": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "stats_player_reg_@{dataset().seasonYear}.csv",
+					"type": "Expression"
+				},
+				"folderPath": "stats_player_reg",
+				"container": "nflverse-data"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "season",
+				"type": "String"
+			},
+			{
+				"name": "season_type",
+				"type": "String"
+			},
+			{
+				"name": "game_week",
+				"type": "String"
+			},
+			{
+				"name": "team_abb",
+				"type": "String"
+			},
+			{
+				"name": "player_id",
+				"type": "String"
+			},
+			{
+				"name": "name_short",
+				"type": "String"
+			},
+			{
+				"name": "rank",
+				"type": "String"
+			},
+			{
+				"name": "qbr_total",
+				"type": "String"
+			},
+			{
+				"name": "pts_added",
+				"type": "String"
+			},
+			{
+				"name": "qb_plays",
+				"type": "String"
+			},
+			{
+				"name": "epa_total",
+				"type": "String"
+			},
+			{
+				"name": "pass",
+				"type": "String"
+			},
+			{
+				"name": "run",
+				"type": "String"
+			},
+			{
+				"name": "exp_sack",
+				"type": "String"
+			},
+			{
+				"name": "penalty",
+				"type": "String"
+			},
+			{
+				"name": "qbr_raw",
+				"type": "String"
+			},
+			{
+				"name": "sack",
+				"type": "String"
+			},
+			{
+				"name": "name_first",
+				"type": "String"
+			},
+			{
+				"name": "name_last",
+				"type": "String"
+			},
+			{
+				"name": "name_display",
+				"type": "String"
+			},
+			{
+				"name": "headshot_href",
+				"type": "String"
+			},
+			{
+				"name": "team",
+				"type": "String"
+			},
+			{
+				"name": "qualified",
+				"type": "String"
+			}
+		]
+	}
+}
